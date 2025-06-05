@@ -1,0 +1,8 @@
+#ifndef PROTOCOL_H
+#define PROTOCOL_H
+
+enum Protocol {
+	REG , LOG , MSG , WHO , UNAMECHECK , UNAMEANSWER ,  PHONECHECK , PHONEANSWER
+};
+
+#endif
