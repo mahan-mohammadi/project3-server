@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include "register.h"
 #include "protocol.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -62,7 +63,23 @@ int main()
     string packet;
     packet = listenToSocket();
     Protocol proto = whatProccess(packet);
+    switch (proto)
+    {
+    case REG:
+        Register reg(packet);
+        register();
+        break;
+    
+    default:
+        break;
+    }
     return 0;
+}
+
+
+
+void register(){
+
 }
 
 

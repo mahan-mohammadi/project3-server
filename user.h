@@ -33,6 +33,7 @@ public:
     string getPassword();
     string getPhoneNumber();
     string getDisplayName();
+    void saveToFile();
 };
 
 #endif

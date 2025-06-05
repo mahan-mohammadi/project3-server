@@ -31,6 +31,7 @@ private:
 
 public:
     // Constructors
+    Date(string);
     Date(int dayOfYear, int year);
     Date(int month, int day, int year);
     Date(Months month, int day, int year);

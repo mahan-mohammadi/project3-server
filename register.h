@@ -12,6 +12,7 @@ private:
 public:
 	Register() : Packet() {};
 	Register(User user , Protocol proto) : Packet(user , proto) {};
+	Register(string);
 
 	void send() override;
 

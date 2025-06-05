@@ -1,4 +1,5 @@
 // Date.cpp
+#include <string>
 #include "Date.h"
 #include <iostream>
 #include <sstream>
@@ -73,6 +74,19 @@ void Date::print() const {
 
 void Date::print0() const {
     cout << day << "-" << month << "-" << year;
+}
+
+Date::Date(string d){
+    stringstream ss(d);
+    string d , m , y;
+    getline(ss , d , '/');
+    getline(ss , m , '/');
+    getline(ss , y);
+    stringstream ds(d) , ms(m) , ys(y);
+
+    ds >> day;
+    ms >> month;
+    ys >> year;
 }
 
 void Date::print1() const {

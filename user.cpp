@@ -1,5 +1,5 @@
 #include "user.h"
-
+#include <fstream>
 User::User()
     : Person(){
     numid = 0;
@@ -56,4 +56,13 @@ string User::getPhoneNumber() {
 
 string User::getDisplayName() {
     return displayName;
+}
+
+void User::saveToFile(){
+    fstream file("users.txt");
+    
+    file << numid << " " << messangerID <<  " " << password << " " << displayName << " "
+    << firstName << " " << familyName << " " << phoneNumber;
+    
+    file.close();
 }
