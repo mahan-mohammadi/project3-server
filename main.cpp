@@ -11,10 +11,7 @@ using namespace std;
 
 
 
-int main()
-{
-
-    while(true){
+string listen(){
 
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -34,12 +31,21 @@ int main()
 
     char buffer[1024] = { 0 };
     recv(clientSocket, buffer, sizeof(buffer), 0);
-    cout << "Message from client: " << buffer
-              << endl;
-
+    string text = buffer;
+    
     close(serverSocket);
 
     }
+
+    return buffer;
+} 
+
+int main()
+{
+
+    while(true){
+    string packet;
+    packet = listen();
 
     return 0;
 }
