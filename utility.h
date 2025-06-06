@@ -10,7 +10,7 @@ using namespace std;
 string listenToSocket();
 Protocol whatProccess(string);
 void makeAcc(User);
-void sendAPacket();
+void sendAPacket(string);
 
 
 #endif

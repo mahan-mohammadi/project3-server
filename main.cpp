@@ -10,13 +10,9 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <fstream>
 
 using namespace std;
-
-
-
-
-
 
 int main()
 {
@@ -31,14 +27,26 @@ int main()
         Register reg(packet);
         makeAcc(reg.getSender());
         break;
-    
+    case LASTIDCALL:
+        string id = getLastid()
+        sendAPacket(id);
+        break;
     default:
         break;
     }
     return 0;
 }
 
-
+string getLastid(){
+    cout << "getting the num id..." << endl;
+    fstream file("users.txt");
+    string lastline;
+    while(getline(file, lastline)){}
+    stringstream ss(lastline);
+    string id;
+    lastline >> id; 
+    return id;    
+}
 
 void makeAcc(User u){
     u.saveToFile();

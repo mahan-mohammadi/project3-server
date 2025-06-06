@@ -65,7 +65,7 @@ void sendAPacket(string packet){
     // sending data
     const char* message = packet
     send(clientSocket, message, strlen(message), 0);
-
+    cour << "send : " << message << endl;
     // closing socket
     close(clientSocket);
 }
