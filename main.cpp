@@ -34,6 +34,7 @@ string listenToSocket(){
 
     char buffer[1024] = { 0 };
     recv(clientSocket, buffer, sizeof(buffer), 0);
+    cout << buffer << endl;
     string text = buffer;
     
     close(serverSocket);
