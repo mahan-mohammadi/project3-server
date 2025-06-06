@@ -6,6 +6,7 @@
 #include <sstream>
 #include "register.h"
 #include "protocol.h"
+#include "user.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -68,7 +69,7 @@ int main()
     {
     case REG:
         Register reg(packet);
-        register();
+        makeAcc(reg.getSender());
         break;
     
     default:
@@ -79,7 +80,9 @@ int main()
 
 
 
-void register(){
+void makeAcc(User u){
+    u.saveToFile();
+    cout << "have registered the user" << endl;
 
 }
 
