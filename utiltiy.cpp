@@ -1,37 +1,38 @@
 #include "utility.h"
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <iostream>
+#include <sstream>
 using namespace std;
 
-string listenToSocket(){
+std::string listenToSocket() {
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2,2), &wsaData);
 
-    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+    SOCKET serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
     sockaddr_in serverAddress;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(8080);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-
-    bind(serverSocket, (struct sockaddr*)&serverAddress,
-         sizeof(serverAddress));
-
+    bind(serverSocket, (sockaddr*)&serverAddress, sizeof(serverAddress));
     listen(serverSocket, 5);
 
-    int clientSocket
-        = accept(serverSocket, nullptr, nullptr);
+    SOCKET clientSocket = accept(serverSocket, nullptr, nullptr);
 
-    char buffer[1024] = { 0 };
+    char *buffer = { 0 };
     recv(clientSocket, buffer, sizeof(buffer), 0);
-    cout << buffer << endl;
-    string text = buffer;
-    
-    close(serverSocket);
+    std::cout << buffer << std::endl;
+    std::string text = buffer;
 
-    return buffer;
+    closesocket(clientSocket);
+    closesocket(serverSocket);
+    WSACleanup();
+
+    return text;
 }
+
 
 
 Protocol whatProccess(string text){
@@ -39,7 +40,8 @@ Protocol whatProccess(string text){
     string proto;
     getline(ss , proto , ':'); // TODO shouble to change the code so it doesnt use enum anymore just defines
      
-    for(int i=0 ; i< sizeof(protocolMap) / sizeof(protocolMap[0] ; i++)){
+    for(int i=0 ; i< sizeof(protocolMap) / sizeof(protocolMap[0]) ; i++)
+    {
         if(protocolMap[i] == proto) {
             return (Protocol)i;
         }
@@ -47,25 +49,24 @@ Protocol whatProccess(string text){
 }
 
 
-void sendAPacket(string packet){
+void sendAPacket(std::string packet) {
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2,2), &wsaData);
 
-    // creating socket
-    int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
+    SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    // specifying address
     sockaddr_in serverAddress;
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(8080);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-    // sending connection request
-    connect(clientSocket, (struct sockaddr*)&serverAddress,
-            sizeof(serverAddress));
+    connect(clientSocket, (sockaddr*)&serverAddress, sizeof(serverAddress));
 
-    // sending data
-    const char* message = packet
+    const char* message = packet.c_str();
     send(clientSocket, message, strlen(message), 0);
-    cour << "send : " << message << endl;
-    // closing socket
-    close(clientSocket);
+
+    std::cout << "send : " << message << std::endl;
+
+    closesocket(clientSocket);
+    WSACleanup();
 }

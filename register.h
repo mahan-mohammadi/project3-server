@@ -11,10 +11,9 @@ private:
 	
 public:
 	Register() : Packet() {};
+	virtual ~Register() {}
 	Register(User user , Protocol proto) : Packet(user , proto) {};
 	Register(string);
-
-	void send() override;
 
 };
 #endif

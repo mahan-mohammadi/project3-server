@@ -3,7 +3,7 @@
 #include "user.h"
 #include "encdec.h"
 
-void Register::send() {
+/*void Register::send() {
 	stringstream ss;
 	encdec encryption(sender.getPassword(), 5);
 	encryption.encrypt();
@@ -16,7 +16,7 @@ void Register::send() {
 
 	string message = ss.str();
 
-}
+}*/
 
 
 Register::Register(string packet){

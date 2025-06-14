@@ -7,12 +7,27 @@
 #include "register.h"
 #include "protocol.h"
 #include "user.h"
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <unistd.h>
 #include <fstream>
+#include "utility.h"
 
 using namespace std;
+
+string getLastid(){
+    cout << "getting the num id..." << endl;
+    fstream file("users.txt");
+    string lastline;
+    while(getline(file, lastline)){}
+    stringstream ss(lastline);
+    string id;
+    ss >> id; 
+    return id;    
+}
+
+void makeAcc(User u){
+    u.saveToFile();
+    cout << "have registered the user" << endl;
+
+}
 
 int main()
 {
@@ -24,34 +39,20 @@ int main()
     switch (proto)
     {
     case REG:
-        Register reg(packet);
+     {   Register reg(packet);
         makeAcc(reg.getSender());
-        break;
+        break;}
     case LASTIDCALL:
-        string id = getLastid()
+        {string id = getLastid();
         sendAPacket(id);
-        break;
+        break;}
     default:
         break;
     }
-    return 0;
+  
+}
+  return 0;
 }
 
-string getLastid(){
-    cout << "getting the num id..." << endl;
-    fstream file("users.txt");
-    string lastline;
-    while(getline(file, lastline)){}
-    stringstream ss(lastline);
-    string id;
-    lastline >> id; 
-    return id;    
-}
-
-void makeAcc(User u){
-    u.saveToFile();
-    cout << "have registered the user" << endl;
-
-}
 
 

@@ -27,6 +27,3 @@ Protocol Packet::getProtocol() {
 	return protocol;
 }
 
-virtual void Packet::send() {
-	// temp
-}

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
 // Enum for months
 enum Months {
     JANUARY = 1, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
@@ -38,7 +39,7 @@ public:
     Date();
 
     // Destructor
-    ~Date();
+    ~Date(){};
 
     // Setters
     void setDay(int);
